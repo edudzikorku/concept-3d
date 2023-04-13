@@ -1,5 +1,5 @@
-// import { ThreeGlobe } from './node_modules/three-globe/dist/three-globe'
-// import { TrackballControls } from './node_modules/three/examples/jsm/controls/TrackballControls'
+import { ThreeGlobe } from './node_modules/three-globe/dist/three-globe';
+import { TrackballControls } from './node_modules/three/examples/jsm/controls/TrackballControls';
 
 Object.assign(THREE, { TrackballControls });
 
