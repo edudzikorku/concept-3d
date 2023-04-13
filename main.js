@@ -13,7 +13,7 @@ document.body.appendChild(renderer.domElement);
 // Create a globe
 const geometry = new THREE.SphereGeometry(1, 32, 32);
 const textureLoader = new THREE.TextureLoader();
-const textureMap = textureLoader.load('textures/world_map.jpg'); // Replace with your own texture map path
+const textureMap = textureLoader.load('textures/size.jpg.webp'); // Replace with your own texture map path
 const material = new THREE.MeshBasicMaterial({ map: textureMap });
 const globe = new THREE.Mesh(geometry, material);
 
