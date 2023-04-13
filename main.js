@@ -1,34 +1,59 @@
-// Create a scene
-const scene = new THREE.Scene();
+import { ThreeGlobe } from './node_modules/three-globe/dist/three-globe'
+import { TrackballControls } from './node_modules/three/examples/jsm/controls/TrackballControls'
 
-// Create a camera
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
+Object.assign(THREE, { TrackballControls });
 
-// Create a renderer
+// Gen random  data 
+ const N = 30;
+const arcsData = [...Array(N).keys()].map(() => ({
+  startLat: (Math.random() - 0.5) * 180,
+  startLng: (Math.random() - 0.5) * 360,
+  endLat: (Math.random() - 0.5) * 180,
+  endLng: (Math.random() - 0.5) * 360,
+  color: ['red', 'yellow', 'white', 'blue'][Math.round(Math.random() * 3)]
+}));
+
+const Globe = new ThreeGlobe()
+    .globeImageUrl('img/earth-night.jpg')
+    .arcsData(arcsData)
+    .arcColor('color')
+    .arcDashLength(0.4)
+    .arcDashGap(3)
+    .arcDashInitialGap(() => Math.random() * 5)
+    .arcDashAnimateTime(1000)
+
+// Set up renderer
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+document.getElementById('my_globe').appendChild(renderer.domElement);
 
-// Create a cube
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
+// Setup scene 
 
-// Add the cube to the scene
-scene.add(cube);
+const scene = new THREE.Scene();
+scene.add(Globe);
+scene.add(new THREE.AmbientLight(0xbbbbbb));
+scene.add(new THREE.DirectionalLight(0xffffff, 0.6));
 
-// Animation loop
-function animate() {
-  requestAnimationFrame(animate);
+//  Setup camera 
 
-  // Rotate the cube
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+const camera = new THREE.PerspectiveCamera();
+camera.aspect = window.innerWidth / window.innerHeight;
+camera.updateProjectionMatrix();
+camera.position.z = 500;
 
-  // Render the scene with the camera
+// Add camera controls 
+
+const tbControls = new THREE.TrackballControls(camera, renderer.domElement);
+tbControls.minDistance = 101;
+tbControls.rotateSpeed = 5;
+tbControls.zoomSpeep = 0.8;
+
+// Kick-off renderer
+
+(function animate() {
+  // Frame cycle
+  tbControls.update();
   renderer.render(scene, camera);
-}
-
-// Start the animation loop
-animate();
+  requestAnimationFrame(animate);
+})();
