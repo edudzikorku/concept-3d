@@ -10,22 +10,21 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Create a globe
-const geometry = new THREE.SphereGeometry(1, 32, 32);
-const textureLoader = new THREE.TextureLoader();
-const textureMap = textureLoader.load('textures/size.jpg.webp'); // Replace with your own texture map path
-const material = new THREE.MeshBasicMaterial({ map: textureMap });
-const globe = new THREE.Mesh(geometry, material);
+// Create a cube
+const geometry = new THREE.BoxGeometry();
+const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const cube = new THREE.Mesh(geometry, material);
 
-// Add the globe to the scene
-scene.add(globe);
+// Add the cube to the scene
+scene.add(cube);
 
 // Animation loop
 function animate() {
   requestAnimationFrame(animate);
 
-  // Rotate the globe
-  globe.rotation.y += 0.005;
+  // Rotate the cube
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
 
   // Render the scene with the camera
   renderer.render(scene, camera);
