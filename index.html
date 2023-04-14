@@ -4,17 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Three.js Example</title>
-    <style>
+    <link rel="stylesheet" href="assets/src/style.css"></link>
+    <!-- <style>
       body { margin: 0; }
       canvas { display: block; }
-    </style>
+    </style> -->
   </head>
   <body>
-    <div id="my_globe"></div>
-    <script src="node_modules/three/build/three.min.js"></script>
-    <script src="node_modules/three/build/three.module.js"></script>
-    <script src="node_modules/three/examples/jsm/controls/TrackballControls.js"></script>
-    <script src="node_modules/three-globe/dist/three-globe.min.js"></script>
-    <script src="main.js"></script>
+    <div id="my_globe">
+      <canvas id="globe-canvas"></canvas>
+      <div id="text">
+        <h1>Exploring the 3D World with three.js</h1>
+      </div>
+    </div>
+    <script src="./main.js"></script>
   </body>
 </html>
